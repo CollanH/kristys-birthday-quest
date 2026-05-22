@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kristy's Birthday Quest</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main id="game-shell" aria-label="Kristy's Birthday Quest game">
+      <section id="title-screen" class="screen active">
+        <div class="title-card">
+          <p class="eyebrow">A tiny birthday memory walk</p>
+          <h1>Kristy's Birthday Quest</h1>
+          <div class="dialogue-box title-dialogue">
+            <p id="title-dialogue-text">Will you play as Kristy?</p>
+            <div class="choice-row">
+              <button id="yes-button" class="choice selected" type="button">YES</button>
+              <button id="no-button" class="choice" type="button">NO</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="game-screen" class="screen" aria-live="polite">
+        <div id="objective-box">
+          <p id="main-objective"></p>
+          <p id="optional-objective"></p>
+          <p id="controls-hint">Move: WASD / Arrow Keys | Interact: E</p>
+        </div>
+
+        <div id="town-wrap">
+          <div id="town-map">
+            <div id="path-main"></div>
+            <div id="path-bottom"></div>
+            <div id="pond" aria-hidden="true"></div>
+            <div id="garden" aria-hidden="true"></div>
+            <div id="player" aria-label="Kristy"></div>
+          </div>
+          <div id="interact-prompt">Press E to enter</div>
+        </div>
+      </section>
+
+      <section id="house-screen" class="screen">
+        <div class="house-panel">
+          <div class="house-header">
+            <div>
+              <p class="eyebrow">Memory House</p>
+              <h2 id="house-title"></h2>
+            </div>
+            <button id="back-to-map" type="button">Back</button>
+          </div>
+          <p id="house-note"></p>
+          <div id="memory-list"></div>
+        </div>
+      </section>
+
+      <section id="ending-screen" class="screen">
+        <div class="ending-card">
+          <p class="eyebrow">Quest Complete</p>
+          <h2>Happy Birthday, Kristy</h2>
+          <p>One year down, many more memories to go.</p>
+          <button id="ending-back-button" type="button">Return to Town</button>
+        </div>
+      </section>
+
+      <div id="dialogue-overlay" class="hidden">
+        <div id="media-card">
+          <img id="memory-image" alt="">
+          <div id="image-placeholder">Image coming soon<br><span>Replace this with a favorite photo later.</span></div>
+          <audio id="memory-audio" controls></audio>
+          <p id="audio-placeholder">Song coming soon</p>
+        </div>
+        <div class="dialogue-box game-dialogue">
+          <p id="speaker-name">Kristy's Birthday Quest</p>
+          <p id="dialogue-text"></p>
+          <p id="dialogue-next">Space / Enter / Click</p>
+        </div>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
