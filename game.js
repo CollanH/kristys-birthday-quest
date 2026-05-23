@@ -1,369 +1,233 @@
 "use strict";
 
-// Kristy's Birthday Quest
-// Edit GAME_DATA to change the story, memory text, image paths, audio paths, and house order.
+// Kristy's Cooking Adventure
+// Edit GAME_DATA to change recipes, ingredients, memories, images, audio, and house order.
 
 const GAME_DATA = {
-  houses: [
-    {
-      id: "friends-start",
-      label: "Where It Started as Friends",
-      zone: "timeline",
-      objective: "Visit the Where It Started as Friends House.",
-      position: { x: 16, y: 22 },
+  cookingHouses: [
+    cookingHouse({
+      id: "breakfast-house",
+      label: "Breakfast House",
+      dishName: "Cozy Breakfast Plate",
+      position: { x: 22, y: 22 },
       unlockOrder: 0,
-      required: true,
-      memories: [
-        {
-          id: "where-it-started",
-          title: "Where It Started",
-          type: "Story",
-          required: true,
-          image: null,
-          song: null,
-          note: "Replace this with the real beginning-of-the-story memory.",
-          lines: [
-            "This is where the little quest begins: two friends, a bunch of laughs, and one story quietly getting ready to become something bigger.",
-            "Placeholder memory: add the real details here later, like the moment things first felt special.",
-            "The town stamps this chapter with a tiny heart and unlocks the next part of the path."
-          ]
-        }
-      ]
-    },
-    {
-      id: "may-august",
-      label: "May - August",
-      zone: "timeline",
-      objective: "Visit the May - August House.",
-      position: { x: 34, y: 22 },
+      ingredients: [
+        ingredient("eggs", "Eggs", "fridge", 25, 34),
+        ingredient("toast", "Toast", "pantry", 68, 32),
+        ingredient("strawberries", "Strawberries", "fruit basket", 38, 70)
+      ],
+      combineStation: { id: "breakfast-table", label: "dining table", x: 72, y: 70 },
+      finalDish: {
+        name: "Cozy Breakfast Plate",
+        image: null,
+        lines: [
+          "Breakfast placeholder memory: a cozy start, something warm on the table, and Kristy making the whole morning better.",
+          "Replace this with the real breakfast memory or a cute note about cooking together."
+        ]
+      }
+    }),
+    cookingHouse({
+      id: "plantains-house",
+      label: "Sweet Plantains House",
+      dishName: "Sweet Plantains",
+      position: { x: 36, y: 22 },
       unlockOrder: 1,
-      required: true,
-      memories: [
-        {
-          id: "first-dates",
-          title: "First dates",
-          type: "Timeline",
-          required: true,
-          image: null,
-          song: null,
-          note: "Add favorite first date details here.",
-          lines: [
-            "A placeholder for first dates: nervous smiles, good conversations, and the suspiciously fast realization that this was very worth doing again.",
-            "Future photo spot: add a favorite picture from one of those early dates."
-          ]
-        },
-        {
-          id: "early-favorite-moments",
-          title: "Early favorite moments",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add little early moments that still make you smile.",
-          lines: [
-            "A cozy little shelf for early favorite moments.",
-            "The exact details are coming soon, but the vibe is already: Kristy being cute, funny, and dangerously easy to adore."
-          ]
-        },
-        {
-          id: "summer-memories",
-          title: "Summer memories",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add summer trips, dates, jokes, and photos.",
-          lines: [
-            "Summer memory placeholder: sunshine, adventures, and probably at least one moment that deserves its own tiny award.",
-            "Add the real story here when you are ready."
-          ]
-        }
-      ]
-    },
-    {
-      id: "september-december",
-      label: "September - December",
-      zone: "timeline",
-      objective: "Visit the September - December House.",
-      position: { x: 52, y: 22 },
+      ingredients: [
+        ingredient("sugar", "Sugar", "pantry", 24, 64),
+        ingredient("plantains", "Plantains", "fruit basket", 45, 34),
+        ingredient("butter", "Butter", "fridge", 75, 35)
+      ],
+      combineStation: { id: "plantains-counter", label: "dining table", x: 70, y: 72 },
+      finalDish: {
+        name: "Sweet Plantains",
+        image: null,
+        lines: [
+          "Sweet Plantains placeholder: golden, sweet, and probably gone way too fast.",
+          "Add the real story here, especially if this dish has a specific Kristy-approved rating."
+        ]
+      }
+    }),
+    cookingHouse({
+      id: "dinner-house",
+      label: "Dinner House",
+      dishName: "Favorite Dinner",
+      position: { x: 50, y: 22 },
       unlockOrder: 2,
-      required: true,
-      memories: [
-        {
-          id: "october-fiascos",
-          title: "October Fiascos",
-          type: "Timeline",
-          required: true,
-          image: null,
-          song: null,
-          note: "Add the funniest October chaos here.",
-          lines: [
-            "October Fiascos placeholder: every great love story deserves at least one chapter with dramatic title energy.",
-            "Insert the hilarious details here, ideally with just enough context to make Kristy laugh immediately."
-          ]
-        },
-        {
-          id: "chill-december",
-          title: "Chill December",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add quiet holiday-season moments.",
-          lines: [
-            "Chill December placeholder: soft nights, warm food, relaxed plans, and being happy to simply be together."
-          ]
-        },
-        {
-          id: "new-years",
-          title: "New Years",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add New Year's memory details.",
-          lines: [
-            "New Years placeholder: one year turning into the next, with Kristy as the best possible person to start it with."
-          ]
-        }
-      ]
-    },
-    {
-      id: "january-march",
-      label: "January - March",
-      zone: "timeline",
-      objective: "Visit the January - March House.",
-      position: { x: 70, y: 22 },
+      ingredients: [
+        ingredient("rice", "Rice", "pantry", 22, 30),
+        ingredient("veggies", "Veggies", "garden basket", 42, 72),
+        ingredient("sauce", "Sauce", "fridge", 78, 55)
+      ],
+      combineStation: { id: "dinner-counter", label: "kitchen counter", x: 67, y: 28 },
+      finalDish: {
+        name: "Favorite Dinner",
+        image: null,
+        lines: [
+          "Dinner placeholder memory: the kind of meal that turns an ordinary night into a favorite one.",
+          "Add the real dinner, inside joke, or favorite cooking detail later."
+        ]
+      }
+    }),
+    cookingHouse({
+      id: "dessert-house",
+      label: "Dessert House",
+      dishName: "Tiny Celebration Dessert",
+      position: { x: 64, y: 22 },
       unlockOrder: 3,
-      required: true,
-      memories: [
-        {
-          id: "valentines-day",
-          title: "Valentine's Day",
-          type: "Timeline",
-          required: true,
-          image: null,
-          song: null,
-          note: "Add Valentine's details here.",
-          lines: [
-            "Valentine's Day placeholder: romance, sweetness, and one more reason the quest log keeps writing Kristy's name in pink ink.",
-            "Add the real date, gift, joke, or favorite moment here."
-          ]
-        },
-        {
-          id: "at-home-cooking",
-          title: "At-home cooking memories",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add favorite meals made at home.",
-          lines: [
-            "At-home cooking placeholder: chopping, tasting, laughing, and somehow making normal nights feel special."
-          ]
-        },
-        {
-          id: "cozy-everyday",
-          title: "Cozy everyday memories",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add little daily moments here.",
-          lines: [
-            "Cozy everyday placeholder: the tiny moments that do not need a big occasion to matter."
-          ]
-        }
-      ]
-    },
-    {
-      id: "april-now",
-      label: "April - Now",
-      zone: "timeline",
-      objective: "Visit the April - Now House.",
-      position: { x: 20, y: 45 },
+      ingredients: [
+        ingredient("flour", "Flour", "pantry", 28, 35),
+        ingredient("chocolate", "Chocolate", "treat shelf", 56, 30),
+        ingredient("cream", "Cream", "fridge", 74, 66)
+      ],
+      combineStation: { id: "dessert-table", label: "dining table", x: 40, y: 72 },
+      finalDish: {
+        name: "Tiny Celebration Dessert",
+        image: null,
+        lines: [
+          "Dessert placeholder memory: sweet enough to be dangerous, cute enough to belong in this game.",
+          "Replace this with the real dessert memory or birthday treat idea."
+        ]
+      }
+    }),
+    cookingHouse({
+      id: "special-dish-house",
+      label: "Special Dish House",
+      dishName: "Special Birthday Dish",
+      position: { x: 78, y: 22 },
       unlockOrder: 4,
-      required: true,
-      memories: [
-        {
-          id: "ren-faire",
-          title: "Ren Faire",
-          type: "Timeline",
-          required: true,
-          image: null,
-          song: null,
-          note: "Add Ren Faire photos and story details.",
-          lines: [
-            "Ren Faire placeholder: a little magic, a little chaos, and Kristy looking like the main character of the whole kingdom.",
-            "Add the real favorite moment here."
-          ]
-        },
-        {
-          id: "edc",
-          title: "EDC",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add EDC music, photos, and favorite details.",
-          lines: [
-            "EDC placeholder: lights, music, and the kind of memory that deserves its own soundtrack."
-          ]
-        },
-        {
-          id: "recent-favorite-moments",
-          title: "Recent favorite moments",
-          type: "Timeline",
-          required: false,
-          image: null,
-          song: null,
-          note: "Add recent moments here.",
-          lines: [
-            "Recent favorite moments placeholder: proof that the story is still actively collecting reasons to smile."
-          ]
-        }
-      ]
-    },
-    {
-      id: "travel-house",
-      label: "Travel House",
-      zone: "special",
-      objective: "Explore the Travel House.",
-      position: { x: 17, y: 78 },
-      required: false,
-      memories: [
-        memoryStub("vegas-trip-1", "Vegas Trip 1", "Travel"),
-        memoryStub("vegas-trip-2", "Vegas Trip 2", "Travel"),
-        memoryStub("vegas-trip-3", "Vegas Trip 3", "Travel"),
-        memoryStub("vegas-trip-4", "Vegas Trip 4", "Travel"),
-        memoryStub("vegas-trip-5", "Vegas Trip 5", "Travel"),
-        memoryStub("montana", "Montana", "Travel"),
-        memoryStub("big-bear", "Big Bear", "Travel"),
-        memoryStub("coachella-valley", "Coachella Valley", "Travel"),
-        memoryStub("future-trips", "Future Trips", "Travel")
-      ]
-    },
-    {
-      id: "music-room",
-      label: "Music Room",
-      zone: "special",
-      objective: "Explore the Music Room.",
-      position: { x: 39, y: 78 },
-      required: false,
-      memories: [
-        songStub("song-1", "Song 1 placeholder"),
-        songStub("song-2", "Song 2 placeholder"),
-        songStub("song-3", "Song 3 placeholder")
-      ]
-    },
-    {
-      id: "kitchen-house",
-      label: "Kitchen / Cooking House",
-      zone: "special",
-      objective: "Explore the Kitchen / Cooking House.",
-      position: { x: 61, y: 78 },
-      required: false,
-      memories: [
-        memoryStub("favorite-things-she-cooked", "Favorite things she cooked", "Food"),
-        memoryStub("favorite-things-we-cooked", "Favorite things we cooked together", "Food"),
-        memoryStub("cozy-food-memories", "Cozy food memories", "Food")
-      ]
-    },
-    {
-      id: "random-favorites",
-      label: "Random Favorites House",
-      zone: "special",
-      objective: "Explore the Random Favorites House.",
-      position: { x: 83, y: 78 },
-      required: false,
-      memories: [
-        memoryStub("favorite-drunk-memories", "Favorite drunk memories", "Favorites"),
-        memoryStub("favorite-alcohol-cleanse", "Favorite alcohol-cleanse memories", "Favorites"),
-        memoryStub("favorite-movies", "Favorite movies we watched", "Favorites"),
-        memoryStub("favorite-tv-shows", "Favorite TV shows together", "Favorites"),
-        memoryStub("gossip-girl-binge", "Gossip Girl binge", "Favorites")
-      ]
-    },
-    {
-      id: "final-letter",
-      label: "Final Birthday Letter",
-      zone: "final",
-      objective: "Visit the Final Birthday Letter.",
-      position: { x: 86, y: 22 },
-      unlockOrder: 5,
-      required: true,
-      memories: [
-        {
-          id: "birthday-letter",
-          title: "Birthday letter placeholder",
-          type: "Final",
-          required: true,
-          image: null,
-          song: null,
-          note: "Replace this with the real birthday letter.",
-          lines: [
-            "Dear Kristy,",
-            "This is the placeholder final birthday letter. Replace these lines with the real letter when you are ready.",
-            "For now, the game wants you to know: you are loved, celebrated, and very much the reason this tiny town exists.",
-            "Happy Birthday, Kristy."
-          ]
-        }
+      ingredients: [
+        ingredient("love", "Love", "heart jar", 24, 72),
+        ingredient("laughs", "Laughs", "memory shelf", 52, 35),
+        ingredient("sparkle", "Sparkle", "party cabinet", 78, 70)
+      ],
+      combineStation: { id: "special-counter", label: "birthday counter", x: 70, y: 42 },
+      finalDish: {
+        name: "Special Birthday Dish",
+        image: null,
+        lines: [
+          "Special Dish placeholder: the final recipe before the Birthday House. It tastes suspiciously like love and excellent planning.",
+          "The Birthday House is ready now."
+        ]
+      }
+    })
+  ],
+  memoryHouses: [
+    memoryHouse("favorite-things", "Favorite Things About Us", 22, 78, [
+      memory("favorite-little-things", "Favorite little things", "Favorites", [
+        "Memory Lane placeholder: favorite things about us, the tiny habits and moments that make everything feel like home."
+      ]),
+      memory("favorite-laughs", "Favorite laughs", "Favorites", [
+        "A placeholder for laughs that deserve their own little trophy."
+      ])
+    ]),
+    memoryHouse("trips", "Trips", 36, 78, [
+      memory("vegas-trips", "Vegas trips", "Travel", ["Trip placeholder: add favorite Vegas details, photos, and chaos here."]),
+      memory("montana-big-bear", "Montana and Big Bear", "Travel", ["Travel placeholder: mountain air, cozy plans, and a future photo spot."]),
+      memory("future-trips", "Future trips", "Travel", ["Future Trips placeholder: a tiny map of places still waiting for us."])
+    ]),
+    memoryHouse("music", "Music", 50, 78, [
+      memory("song-1", "Song 1 placeholder", "Song", ["Song coming soon. Add an audio path later and it will play here."], null, null),
+      memory("song-2", "Song 2 placeholder", "Song", ["Another song placeholder for the soundtrack of us."], null, null),
+      memory("song-3", "Song 3 placeholder", "Song", ["One more song placeholder, ready for a real MP3 when you are."])
+    ]),
+    memoryHouse("shows-movies", "Shows & Movies", 64, 78, [
+      memory("favorite-movies", "Favorite movies we watched", "Shows", ["Movie placeholder: add the favorites, the rewatches, and the couch commentary."]),
+      memory("favorite-shows", "Favorite TV shows together", "Shows", ["TV placeholder: favorite shows, shared quotes, and the episodes that became a whole thing."]),
+      memory("gossip-girl", "Gossip Girl binge", "Shows", ["Gossip Girl placeholder: dramatic, iconic, and somehow exactly right."])
+    ]),
+    memoryHouse("random-favorites", "Random Favorite Memories", 78, 78, [
+      memory("favorite-drunk-memories", "Favorite drunk memories", "Random", ["Random favorite placeholder: add the funny stories here."]),
+      memory("alcohol-cleanse", "Favorite alcohol-cleanse memories", "Random", ["A very specific category, which means it definitely belongs in Memory Lane."]),
+      memory("recent-favorites", "Recent favorite moments", "Random", ["Recent favorite placeholder: proof the story is still collecting good stuff."])
+    ])
+  ],
+  birthdayHouse: {
+    id: "birthday-house",
+    label: "Birthday House",
+    zone: "birthday",
+    position: { x: 92, y: 50 },
+    letter: {
+      title: "Birthday letter placeholder",
+      image: null,
+      song: null,
+      lines: [
+        "Dear Kristy,",
+        "This is the placeholder birthday letter. Replace these lines with the real final note when you are ready.",
+        "For now, this little cooking adventure wants you to know: you are loved, celebrated, and absolutely worth every recipe.",
+        "Happy Birthday, Kristy."
       ]
     }
+  },
+  farmDecor: [
+    { label: "cow", x: 42, y: 43 },
+    { label: "pig", x: 56, y: 46 },
+    { label: "chicken", x: 48, y: 59 },
+    { label: "crops", x: 61, y: 60 },
+    { label: "fence", x: 36, y: 55 },
+    { label: "crops", x: 52, y: 36 }
   ]
 };
 
-function memoryStub(id, title, type) {
+function cookingHouse(config) {
+  return {
+    zone: "cooking",
+    completed: false,
+    ...config
+  };
+}
+
+function ingredient(id, name, source, x, y) {
+  return { id, name, source, x, y, collected: false };
+}
+
+function memoryHouse(id, label, x, y, memories) {
+  return {
+    id,
+    label,
+    zone: "memory",
+    position: { x, y },
+    memories
+  };
+}
+
+function memory(id, title, type, lines, image = null, song = null) {
   return {
     id,
     title,
     type,
-    required: false,
-    image: null,
-    song: null,
-    note: "Future content placeholder. Add dialogue, image, and audio whenever you want.",
-    lines: [
-      `${title} placeholder memory.`,
-      "Add the real story here later, plus a favorite photo if you have one."
-    ]
-  };
-}
-
-function songStub(id, title) {
-  return {
-    id,
-    title,
-    type: "Song",
-    required: false,
-    image: null,
-    song: null,
-    note: "Add an MP3 path later, for example assets/audio/our-song.mp3.",
-    lines: [
-      `${title}: song coming soon.`,
-      "When you add an audio path, the player will appear here automatically."
-    ]
+    image,
+    song,
+    viewed: false,
+    lines
   };
 }
 
 const state = {
   screen: "title",
-  player: { x: 50, y: 62, speed: 0.34 },
+  mapPlayer: { x: 8, y: 50, speed: 0.34 },
+  roomPlayer: { x: 50, y: 82, speed: 0.44 },
   keys: new Set(),
-  completedMemories: new Set(),
-  completedHouses: new Set(),
-  currentMainOrder: 0,
-  nearbyHouseId: null,
-  activeHouseId: null,
+  currentCookingOrder: 0,
+  completedCookingHouses: new Set(),
+  viewedMemories: new Set(),
   activeMemory: null,
+  nearbyMapHouseId: null,
+  activeCookingHouseId: null,
+  activeMemoryHouseId: null,
+  nearbyRoomTarget: null,
+  dialogueMode: null,
   dialogueLines: [],
   dialogueIndex: 0,
-  titleNoCount: 0
+  dialogueTitle: "Kristy's Cooking Adventure",
+  titleNoCount: 0,
+  questComplete: false
 };
 
 const els = {
   screens: {
     title: document.querySelector("#title-screen"),
     game: document.querySelector("#game-screen"),
+    cooking: document.querySelector("#cooking-screen"),
     house: document.querySelector("#house-screen"),
     ending: document.querySelector("#ending-screen")
   },
@@ -371,10 +235,16 @@ const els = {
   yesButton: document.querySelector("#yes-button"),
   noButton: document.querySelector("#no-button"),
   townMap: document.querySelector("#town-map"),
-  player: document.querySelector("#player"),
-  prompt: document.querySelector("#interact-prompt"),
+  farmDecor: document.querySelector("#farm-decor"),
+  mapPlayer: document.querySelector("#player"),
+  mapPrompt: document.querySelector("#interact-prompt"),
   mainObjective: document.querySelector("#main-objective"),
   optionalObjective: document.querySelector("#optional-objective"),
+  recipeTitle: document.querySelector("#recipe-title"),
+  recipeChecklist: document.querySelector("#recipe-checklist"),
+  cookingRoom: document.querySelector("#cooking-room"),
+  roomPlayer: document.querySelector("#room-player"),
+  roomPrompt: document.querySelector("#room-prompt"),
   houseTitle: document.querySelector("#house-title"),
   houseNote: document.querySelector("#house-note"),
   memoryList: document.querySelector("#memory-list"),
@@ -390,9 +260,9 @@ const els = {
 };
 
 function init() {
-  renderHouses();
+  renderMap();
   updateObjective();
-  updatePlayer();
+  updateMapPlayer();
   bindEvents();
   requestAnimationFrame(gameLoop);
 }
@@ -421,13 +291,18 @@ function bindEvents() {
       return;
     }
 
-    if (state.screen === "house" && key === "escape") {
+    if ((state.screen === "house" || state.screen === "cooking") && key === "escape") {
       returnToMap();
       return;
     }
 
     if (state.screen === "game" && key === "e") {
-      interactWithNearbyHouse();
+      interactWithMapHouse();
+      return;
+    }
+
+    if (state.screen === "cooking" && key === "e") {
+      interactInCookingRoom();
       return;
     }
 
@@ -447,7 +322,7 @@ function handleNoChoice() {
   state.titleNoCount += 1;
   els.titleText.textContent = state.titleNoCount === 1
     ? "Unfortunately, this quest is mandatory."
-    : "The NO button tried its best, but the birthday magic says YES.";
+    : "The NO button checked the recipe book and found only YES.";
   els.noButton.textContent = "NO?";
   els.yesButton.classList.add("selected");
 }
@@ -460,15 +335,24 @@ function setScreen(name) {
 }
 
 function gameLoop() {
-  if (state.screen === "game" && els.overlay.classList.contains("hidden")) {
-    movePlayer();
-    updateNearbyHouse();
-    updatePlayer();
+  if (els.overlay.classList.contains("hidden")) {
+    if (state.screen === "game") {
+      movePlayer(state.mapPlayer, 4, 96, 8, 94);
+      updateNearbyMapHouse();
+      updateMapPlayer();
+    }
+
+    if (state.screen === "cooking") {
+      movePlayer(state.roomPlayer, 8, 92, 15, 88);
+      updateNearbyRoomTarget();
+      updateRoomPlayer();
+    }
   }
+
   requestAnimationFrame(gameLoop);
 }
 
-function movePlayer() {
+function movePlayer(player, minX, maxX, minY, maxY) {
   let dx = 0;
   let dy = 0;
 
@@ -482,17 +366,18 @@ function movePlayer() {
     dy *= 0.707;
   }
 
-  state.player.x = clamp(state.player.x + dx * state.player.speed, 4, 96);
-  state.player.y = clamp(state.player.y + dy * state.player.speed, 8, 94);
+  player.x = clamp(player.x + dx * player.speed, minX, maxX);
+  player.y = clamp(player.y + dy * player.speed, minY, maxY);
 }
 
-function updatePlayer() {
-  els.player.style.left = `${state.player.x}%`;
-  els.player.style.top = `${state.player.y}%`;
-}
+function renderMap() {
+  const houses = [
+    ...GAME_DATA.cookingHouses,
+    ...GAME_DATA.memoryHouses,
+    GAME_DATA.birthdayHouse
+  ];
 
-function renderHouses() {
-  GAME_DATA.houses.forEach((house) => {
+  houses.forEach((house) => {
     const houseEl = document.createElement("button");
     houseEl.type = "button";
     houseEl.className = `house ${house.zone}`;
@@ -504,90 +389,324 @@ function renderHouses() {
       <span class="house-label">${house.label}</span>
     `;
     houseEl.addEventListener("click", () => {
-      state.nearbyHouseId = house.id;
-      interactWithNearbyHouse();
+      state.nearbyMapHouseId = house.id;
+      interactWithMapHouse();
     });
     els.townMap.appendChild(houseEl);
   });
+
+  GAME_DATA.farmDecor.forEach((item) => {
+    const decor = document.createElement("span");
+    decor.className = `farm-prop ${item.label}`;
+    decor.style.left = `${item.x}%`;
+    decor.style.top = `${item.y}%`;
+    decor.textContent = farmIcon(item.label);
+    els.farmDecor.appendChild(decor);
+  });
+
   refreshHouseClasses();
 }
 
+function farmIcon(label) {
+  const icons = {
+    cow: "cow",
+    pig: "pig",
+    chicken: "hen",
+    crops: "crop",
+    fence: "fence"
+  };
+  return icons[label] || label;
+}
+
 function refreshHouseClasses() {
-  const currentHouse = getCurrentMainHouse();
+  const currentCookingHouse = getCurrentCookingHouse();
 
   document.querySelectorAll(".house").forEach((houseEl) => {
     const house = getHouse(houseEl.dataset.houseId);
     const unlocked = isHouseUnlocked(house);
     houseEl.classList.toggle("locked", !unlocked);
-    houseEl.classList.toggle("current", Boolean(currentHouse && house.id === currentHouse.id));
-    houseEl.classList.toggle("optional-ready", Boolean(unlocked && house.zone === "special"));
+    houseEl.classList.toggle("current", Boolean(currentCookingHouse && house.id === currentCookingHouse.id));
+    houseEl.classList.toggle("optional-ready", Boolean(unlocked && house.zone === "memory"));
+    houseEl.classList.toggle("completed", Boolean(house.zone === "cooking" && state.completedCookingHouses.has(house.id)));
+    houseEl.classList.toggle("birthday-ready", Boolean(house.zone === "birthday" && unlocked));
   });
 }
 
-function updateNearbyHouse() {
+function updateMapPlayer() {
+  els.mapPlayer.style.left = `${state.mapPlayer.x}%`;
+  els.mapPlayer.style.top = `${state.mapPlayer.y}%`;
+}
+
+function updateRoomPlayer() {
+  els.roomPlayer.style.left = `${state.roomPlayer.x}%`;
+  els.roomPlayer.style.top = `${state.roomPlayer.y}%`;
+}
+
+function updateNearbyMapHouse() {
+  const houses = [
+    ...GAME_DATA.cookingHouses,
+    ...GAME_DATA.memoryHouses,
+    GAME_DATA.birthdayHouse
+  ];
   let closest = null;
   let closestDistance = Infinity;
 
-  GAME_DATA.houses.forEach((house) => {
-    const distance = Math.hypot(state.player.x - house.position.x, state.player.y - house.position.y);
+  houses.forEach((house) => {
+    const distance = Math.hypot(state.mapPlayer.x - house.position.x, state.mapPlayer.y - house.position.y);
     if (distance < closestDistance) {
       closest = house;
       closestDistance = distance;
     }
   });
 
-  state.nearbyHouseId = closestDistance < 9 ? closest.id : null;
-  els.prompt.style.display = state.nearbyHouseId ? "block" : "none";
+  state.nearbyMapHouseId = closestDistance < 9 ? closest.id : null;
+  els.mapPrompt.style.display = state.nearbyMapHouseId ? "block" : "none";
 }
 
-function interactWithNearbyHouse() {
-  if (!state.nearbyHouseId) return;
+function interactWithMapHouse() {
+  if (!state.nearbyMapHouseId) return;
 
-  const house = getHouse(state.nearbyHouseId);
+  const house = getHouse(state.nearbyMapHouseId);
   if (!isHouseUnlocked(house)) {
     showLockedDialogue(house);
     return;
   }
 
-  openHouse(house.id);
+  if (house.zone === "cooking") {
+    enterCookingHouse(house.id);
+    return;
+  }
+
+  if (house.zone === "memory") {
+    openMemoryHouse(house.id);
+    return;
+  }
+
+  enterBirthdayHouse();
 }
 
-function openHouse(houseId) {
-  const house = getHouse(houseId);
-  state.activeHouseId = houseId;
-  els.houseTitle.textContent = house.label;
-  els.houseNote.textContent = house.zone === "final"
-    ? "The final door is open. This one is meant to feel extra special."
-    : house.zone === "special"
-      ? "Optional memories can be visited in any order."
-      : "Finish at least one required memory here to unlock the next main house.";
+function enterCookingHouse(houseId) {
+  const house = getCookingHouse(houseId);
+  state.activeCookingHouseId = house.id;
+  state.roomPlayer = { x: 50, y: 82, speed: 0.44 };
+  resetRecipeProgress(house);
+  renderCookingRoom(house);
+  setScreen("cooking");
+  updateObjective();
+  startDialogue("recipeIntro", house.label, buildRecipeIntroLines(house), { image: null, song: null });
+}
 
+function resetRecipeProgress(house) {
+  house.ingredients.forEach((item) => {
+    item.collected = false;
+  });
+}
+
+function buildRecipeIntroLines(house) {
+  const ingredientList = house.ingredients.map((item) => `${item.name} from the ${item.source}`).join(", ");
+  return [
+    `Today's recipe: ${house.dishName}.`,
+    `Find 3 ingredients: ${ingredientList}.`,
+    `Bring them to the ${house.combineStation.label} to combine.`
+  ];
+}
+
+function renderCookingRoom(house) {
+  els.cookingRoom.querySelectorAll(".ingredient-object, .combine-station").forEach((node) => node.remove());
+  els.recipeTitle.textContent = `${house.label}: ${house.dishName}`;
+
+  house.ingredients.forEach((item) => {
+    const ingredientEl = document.createElement("button");
+    ingredientEl.type = "button";
+    ingredientEl.className = "ingredient-object";
+    ingredientEl.dataset.targetId = item.id;
+    ingredientEl.style.left = `${item.x}%`;
+    ingredientEl.style.top = `${item.y}%`;
+    ingredientEl.innerHTML = `<span>${item.name}</span><small>${item.source}</small>`;
+    ingredientEl.addEventListener("click", () => {
+      state.nearbyRoomTarget = { type: "ingredient", id: item.id };
+      interactInCookingRoom();
+    });
+    els.cookingRoom.appendChild(ingredientEl);
+  });
+
+  const stationEl = document.createElement("button");
+  stationEl.type = "button";
+  stationEl.className = "combine-station";
+  stationEl.dataset.targetId = house.combineStation.id;
+  stationEl.style.left = `${house.combineStation.x}%`;
+  stationEl.style.top = `${house.combineStation.y}%`;
+  stationEl.innerHTML = `<span>${house.combineStation.label}</span><small>combine here</small>`;
+  stationEl.addEventListener("click", () => {
+    state.nearbyRoomTarget = { type: "station", id: house.combineStation.id };
+    interactInCookingRoom();
+  });
+  els.cookingRoom.appendChild(stationEl);
+
+  updateRecipeChecklist(house);
+  updateRoomPlayer();
+  updateNearbyRoomTarget();
+}
+
+function updateRecipeChecklist(house) {
+  els.recipeChecklist.innerHTML = "";
+  house.ingredients.forEach((item) => {
+    const row = document.createElement("li");
+    row.className = item.collected ? "checked" : "";
+    row.textContent = `${item.collected ? "☑" : "☐"} ${item.name} (${item.source})`;
+    els.recipeChecklist.appendChild(row);
+  });
+
+  const ready = areAllIngredientsCollected(house);
+  const stationEl = els.cookingRoom.querySelector(".combine-station");
+  if (stationEl) stationEl.classList.toggle("active", ready);
+
+  const stationRow = document.createElement("li");
+  stationRow.className = ready ? "ready" : "";
+  stationRow.textContent = ready
+    ? `Ready: bring everything to the ${house.combineStation.label}.`
+    : `Then combine at the ${house.combineStation.label}.`;
+  els.recipeChecklist.appendChild(stationRow);
+}
+
+function updateNearbyRoomTarget() {
+  const house = getCookingHouse(state.activeCookingHouseId);
+  if (!house) return;
+
+  const targets = [
+    ...house.ingredients
+      .filter((item) => !item.collected)
+      .map((item) => ({ type: "ingredient", id: item.id, x: item.x, y: item.y })),
+    { type: "station", id: house.combineStation.id, x: house.combineStation.x, y: house.combineStation.y }
+  ];
+
+  let closest = null;
+  let closestDistance = Infinity;
+  targets.forEach((target) => {
+    const distance = Math.hypot(state.roomPlayer.x - target.x, state.roomPlayer.y - target.y);
+    if (distance < closestDistance) {
+      closest = target;
+      closestDistance = distance;
+    }
+  });
+
+  state.nearbyRoomTarget = closestDistance < 11 ? closest : null;
+  els.roomPrompt.style.display = state.nearbyRoomTarget ? "block" : "none";
+  els.roomPrompt.textContent = state.nearbyRoomTarget?.type === "station"
+    ? "Press E to combine"
+    : "Press E to collect";
+}
+
+function interactInCookingRoom() {
+  const house = getCookingHouse(state.activeCookingHouseId);
+  if (!house || !state.nearbyRoomTarget) return;
+
+  if (state.nearbyRoomTarget.type === "ingredient") {
+    const item = house.ingredients.find((ingredientItem) => ingredientItem.id === state.nearbyRoomTarget.id);
+    if (!item || item.collected) return;
+    item.collected = true;
+    const itemEl = els.cookingRoom.querySelector(`[data-target-id="${item.id}"]`);
+    if (itemEl) itemEl.classList.add("collected");
+    updateRecipeChecklist(house);
+    updateNearbyRoomTarget();
+    return;
+  }
+
+  if (!areAllIngredientsCollected(house)) {
+    startDialogue("notice", house.dishName, ["The recipe still needs all 3 ingredients first."], { image: null, song: null });
+    return;
+  }
+
+  startDialogue("finalDish", house.finalDish.name, house.finalDish.lines, {
+    image: house.finalDish.image,
+    song: house.finalDish.song
+  });
+}
+
+function areAllIngredientsCollected(house) {
+  return house.ingredients.every((item) => item.collected);
+}
+
+function finishCookingHouse() {
+  const house = getCookingHouse(state.activeCookingHouseId);
+  if (!house) return;
+
+  house.completed = true;
+  state.completedCookingHouses.add(house.id);
+  if (house.unlockOrder === state.currentCookingOrder) {
+    state.currentCookingOrder += 1;
+  }
+
+  refreshAfterProgression();
+  returnToMap();
+}
+
+function openMemoryHouse(houseId) {
+  const house = getMemoryHouse(houseId);
+  state.activeMemoryHouseId = houseId;
+  els.houseTitle.textContent = house.label;
+  els.houseNote.textContent = "Optional Memory Lane cards are bonus favorite moments and do not affect the Birthday House unlock.";
   els.memoryList.innerHTML = "";
-  house.memories.forEach((memory) => {
+
+  house.memories.forEach((memoryItem) => {
     const memoryButton = document.createElement("button");
     memoryButton.type = "button";
     memoryButton.className = "memory-card";
-    memoryButton.classList.toggle("completed", isMemoryCompleted(house.id, memory.id));
+    memoryButton.classList.toggle("completed", state.viewedMemories.has(memoryKey(house.id, memoryItem.id)));
     memoryButton.innerHTML = `
-      <h3>${memory.title}</h3>
-      <p>${memory.type}${memory.required ? " | Required" : " | Optional"}</p>
-      <p>${memory.note || "Ready for a future photo, song, or longer story."}</p>
+      <h3>${memoryItem.title}</h3>
+      <p>${memoryItem.type} | Optional</p>
+      <p>${state.viewedMemories.has(memoryKey(house.id, memoryItem.id)) ? "Viewed" : "Bonus memory card"}</p>
     `;
-    memoryButton.addEventListener("click", () => startMemory(house, memory));
+    memoryButton.addEventListener("click", () => startMemoryCard(house, memoryItem));
     els.memoryList.appendChild(memoryButton);
   });
 
   setScreen("house");
 }
 
-function startMemory(house, memory) {
-  state.activeHouseId = house.id;
-  state.activeMemory = memory;
-  state.dialogueLines = Array.isArray(memory.lines) && memory.lines.length
-    ? memory.lines
-    : ["This memory is waiting for its story."];
+function startMemoryCard(house, memoryItem) {
+  state.activeMemoryHouseId = house.id;
+  state.dialogueMode = "memory";
+  state.activeMemory = memoryItem;
+  startDialogue("memory", memoryItem.title, memoryItem.lines, {
+    image: memoryItem.image,
+    song: memoryItem.song
+  });
+}
+
+function finishMemoryCard() {
+  const house = getMemoryHouse(state.activeMemoryHouseId);
+  if (house && state.activeMemory) {
+    state.viewedMemories.add(memoryKey(house.id, state.activeMemory.id));
+    openMemoryHouse(house.id);
+  }
+}
+
+function enterBirthdayHouse() {
+  const letter = GAME_DATA.birthdayHouse.letter;
+  startDialogue("birthday", letter.title, letter.lines, {
+    image: letter.image,
+    song: letter.song
+  });
+}
+
+function showLockedDialogue(house) {
+  const message = house.zone === "birthday"
+    ? "The birthday house smells amazing, but the final recipe is not ready yet."
+    : "This cooking house is still warming up. Complete the next recipe first.";
+
+  startDialogue("notice", house.label, [message], { image: null, song: null });
+}
+
+function startDialogue(mode, title, lines, media) {
+  state.dialogueMode = mode;
+  state.dialogueTitle = title;
+  state.dialogueLines = Array.isArray(lines) && lines.length
+    ? lines
+    : ["This moment is waiting for its story."];
   state.dialogueIndex = 0;
-  configureMedia(memory);
+  configureMedia({ title, ...media });
   showDialogueLine();
   els.overlay.classList.remove("hidden");
 }
@@ -634,7 +753,7 @@ function configureMedia(memory) {
 }
 
 function showDialogueLine() {
-  els.speaker.textContent = state.activeMemory?.title || "Kristy's Birthday Quest";
+  els.speaker.textContent = state.dialogueTitle;
   els.dialogueText.textContent = state.dialogueLines[state.dialogueIndex];
 }
 
@@ -647,49 +766,33 @@ function advanceDialogue() {
     return;
   }
 
-  if (!state.activeHouseId) {
-    els.overlay.classList.add("hidden");
-    state.activeMemory = null;
-    return;
-  }
-
-  finishMemory();
-}
-
-function finishMemory() {
-  const house = getHouse(state.activeHouseId);
-  const memory = state.activeMemory;
-  markMemoryComplete(house, memory);
+  const mode = state.dialogueMode;
   els.overlay.classList.add("hidden");
   els.memoryAudio.pause();
+  state.dialogueMode = null;
 
-  if (house.zone === "final") {
-    completeHouseIfReady(house);
+  if (mode === "memory") {
+    finishMemoryCard();
+  }
+
+  if (mode === "finalDish") {
+    finishCookingHouse();
+  }
+
+  if (mode === "birthday") {
+    state.questComplete = true;
     setScreen("ending");
-    refreshAfterProgression();
-    return;
+    updateObjective();
+    refreshHouseClasses();
   }
+}
 
-  completeHouseIfReady(house);
-  openHouse(house.id);
+function returnToMap() {
+  state.activeCookingHouseId = null;
+  state.activeMemoryHouseId = null;
+  els.overlay.classList.add("hidden");
+  setScreen("game");
   refreshAfterProgression();
-}
-
-function markMemoryComplete(house, memory) {
-  state.completedMemories.add(memoryKey(house.id, memory.id));
-}
-
-function completeHouseIfReady(house) {
-  const requiredMemories = house.memories.filter((memory) => memory.required);
-  const hasCompletedRequired = requiredMemories.length === 0
-    || requiredMemories.some((memory) => isMemoryCompleted(house.id, memory.id));
-
-  if (!hasCompletedRequired) return;
-
-  state.completedHouses.add(house.id);
-  if ((house.zone === "timeline" || house.zone === "final") && house.unlockOrder === state.currentMainOrder) {
-    state.currentMainOrder += 1;
-  }
 }
 
 function refreshAfterProgression() {
@@ -697,67 +800,65 @@ function refreshAfterProgression() {
   refreshHouseClasses();
 }
 
-function returnToMap() {
-  setScreen("game");
-  refreshAfterProgression();
-}
-
-function showLockedDialogue(house) {
-  const message = house.zone === "final"
-    ? "This door feels special, but it's waiting for a few more memories first."
-    : house.zone === "special"
-      ? "These special memories will open after the story begins."
-      : "This memory is still sealed. Follow the main quest first.";
-
-  state.activeHouseId = null;
-  state.activeMemory = { title: house.label };
-  state.dialogueLines = [message];
-  state.dialogueIndex = 0;
-  configureMedia({ title: house.label, image: null, song: null });
-  showDialogueLine();
-  els.overlay.classList.remove("hidden");
-}
-
 function updateObjective() {
-  const currentHouse = getCurrentMainHouse();
-  els.mainObjective.textContent = currentHouse
-    ? `Main Quest: ${currentHouse.objective}`
-    : "Main Quest: The birthday quest is complete.";
+  const currentHouse = getCurrentCookingHouse();
+  const recipesComplete = state.completedCookingHouses.size;
 
-  els.optionalObjective.textContent = areSpecialHousesUnlocked()
-    ? "Optional: Explore the special memory houses at the bottom of town."
-    : "Optional: Special memory houses will open after the story begins.";
+  if (state.questComplete) {
+    els.mainObjective.textContent = "Main Quest: The cooking adventure is complete.";
+    els.optionalObjective.textContent = "Optional: Revisit Memory Lane or replay favorite recipe houses.";
+    return;
+  }
+
+  if (state.screen === "cooking" && state.activeCookingHouseId) {
+    const house = getCookingHouse(state.activeCookingHouseId);
+    els.mainObjective.textContent = `Main Quest: Complete ${house.dishName}.`;
+    els.optionalObjective.textContent = "Recipe checklist is shown in this room.";
+    return;
+  }
+
+  if (isBirthdayUnlocked() && !currentHouse) {
+    els.mainObjective.textContent = "Main Quest: Enter the Birthday House.";
+  } else {
+    els.mainObjective.textContent = currentHouse
+      ? `Main Quest: Complete the next recipe at ${currentHouse.label}.`
+      : "Main Quest: The cooking adventure is complete.";
+  }
+
+  els.optionalObjective.textContent = `Optional: Visit Memory Lane for favorite moments about us. Recipes complete: ${recipesComplete}/5.`;
 }
 
-function getCurrentMainHouse() {
-  return GAME_DATA.houses.find((house) => {
-    if (house.zone === "timeline") return house.unlockOrder === state.currentMainOrder;
-    if (house.zone === "final") return house.unlockOrder === state.currentMainOrder;
-    return false;
-  });
+function getCurrentCookingHouse() {
+  return GAME_DATA.cookingHouses.find((house) => house.unlockOrder === state.currentCookingOrder);
+}
+
+function isBirthdayUnlocked() {
+  return GAME_DATA.cookingHouses.every((house) => state.completedCookingHouses.has(house.id));
 }
 
 function isHouseUnlocked(house) {
-  if (house.zone === "timeline") return house.unlockOrder <= state.currentMainOrder;
-  if (house.zone === "special") return areSpecialHousesUnlocked();
-  if (house.zone === "final") return house.unlockOrder <= state.currentMainOrder;
+  if (house.zone === "cooking") return house.unlockOrder <= state.currentCookingOrder;
+  if (house.zone === "memory") return true;
+  if (house.zone === "birthday") return isBirthdayUnlocked();
   return false;
 }
 
-function areSpecialHousesUnlocked() {
-  return state.completedHouses.has("friends-start");
+function getHouse(houseId) {
+  return getCookingHouse(houseId)
+    || getMemoryHouse(houseId)
+    || (GAME_DATA.birthdayHouse.id === houseId ? GAME_DATA.birthdayHouse : null);
 }
 
-function isMemoryCompleted(houseId, memoryId) {
-  return state.completedMemories.has(memoryKey(houseId, memoryId));
+function getCookingHouse(houseId) {
+  return GAME_DATA.cookingHouses.find((house) => house.id === houseId);
+}
+
+function getMemoryHouse(houseId) {
+  return GAME_DATA.memoryHouses.find((house) => house.id === houseId);
 }
 
 function memoryKey(houseId, memoryId) {
   return `${houseId}:${memoryId}`;
-}
-
-function getHouse(houseId) {
-  return GAME_DATA.houses.find((house) => house.id === houseId);
 }
 
 function clamp(value, min, max) {

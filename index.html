@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kristy's Birthday Quest</title>
+    <title>Kristy's Cooking Adventure</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <main id="game-shell" aria-label="Kristy's Birthday Quest game">
+    <main id="game-shell" aria-label="Kristy's Cooking Adventure game">
       <section id="title-screen" class="screen active">
         <div class="title-card">
-          <p class="eyebrow">A tiny birthday memory walk</p>
-          <h1>Kristy's Birthday Quest</h1>
+          <p class="eyebrow">A tiny birthday cooking quest</p>
+          <h1>Kristy's Cooking Adventure</h1>
           <div class="dialogue-box title-dialogue">
             <p id="title-dialogue-text">Will you play as Kristy?</p>
             <div class="choice-row">
@@ -32,7 +32,10 @@
         <div id="town-wrap">
           <div id="town-map">
             <div id="path-main"></div>
-            <div id="path-bottom"></div>
+            <div id="path-cooking"></div>
+            <div id="path-memory"></div>
+            <div id="path-birthday"></div>
+            <div id="farm-decor" aria-hidden="true"></div>
             <div id="pond" aria-hidden="true"></div>
             <div id="garden" aria-hidden="true"></div>
             <div id="player" aria-label="Kristy"></div>
@@ -41,11 +44,27 @@
         </div>
       </section>
 
+      <section id="cooking-screen" class="screen">
+        <div id="recipe-box">
+          <p id="recipe-title"></p>
+          <ul id="recipe-checklist"></ul>
+          <p id="recipe-room-hint">Move: WASD / Arrow Keys | Interact: E | Escape: Back to town</p>
+        </div>
+
+        <div id="room-wrap">
+          <div id="cooking-room">
+            <div id="room-floor"></div>
+            <div id="room-player" aria-label="Kristy inside the cooking house"></div>
+          </div>
+          <div id="room-prompt">Press E</div>
+        </div>
+      </section>
+
       <section id="house-screen" class="screen">
         <div class="house-panel">
           <div class="house-header">
             <div>
-              <p class="eyebrow">Memory House</p>
+              <p class="eyebrow">Memory Lane</p>
               <h2 id="house-title"></h2>
             </div>
             <button id="back-to-map" type="button">Back</button>
@@ -72,7 +91,7 @@
           <p id="audio-placeholder">Song coming soon</p>
         </div>
         <div class="dialogue-box game-dialogue">
-          <p id="speaker-name">Kristy's Birthday Quest</p>
+          <p id="speaker-name">Kristy's Cooking Adventure</p>
           <p id="dialogue-text"></p>
           <p id="dialogue-next">Space / Enter / Click</p>
         </div>
