@@ -4,12 +4,24 @@
 // Edit GAME_DATA to change recipes, ingredients, memories, images, audio, and house order.
 
 const GAME_DATA = {
+  // Overworld tiles copied from the asset pack. Replace these paths to change terrain art.
+  tileAssets: {
+    grass: [
+      "assets/images/map/grass-1.png",
+      "assets/images/map/grass-2.png",
+      "assets/images/map/grass-3.png"
+    ],
+    path: "assets/images/map/path-middle.png",
+    farmland: "assets/images/map/farmland-tile.png",
+    water: "assets/images/map/water-middle.png",
+    fence: "assets/images/map/fence-big.png"
+  },
   cookingHouses: [
     cookingHouse({
       id: "breakfast-house",
       label: "Breakfast House",
       dishName: "Cozy Breakfast Plate",
-      position: { x: 22, y: 22 },
+      position: { x: 23, y: 14 },
       unlockOrder: 0,
       ingredients: [
         ingredient("eggs", "Eggs", "fridge", 25, 34),
@@ -30,7 +42,7 @@ const GAME_DATA = {
       id: "plantains-house",
       label: "Sweet Plantains House",
       dishName: "Sweet Plantains",
-      position: { x: 36, y: 22 },
+      position: { x: 36.5, y: 14 },
       unlockOrder: 1,
       ingredients: [
         ingredient("sugar", "Sugar", "pantry", 24, 64),
@@ -51,7 +63,7 @@ const GAME_DATA = {
       id: "dinner-house",
       label: "Dinner House",
       dishName: "Favorite Dinner",
-      position: { x: 50, y: 22 },
+      position: { x: 50, y: 14 },
       unlockOrder: 2,
       ingredients: [
         ingredient("rice", "Rice", "pantry", 22, 30),
@@ -72,7 +84,7 @@ const GAME_DATA = {
       id: "dessert-house",
       label: "Dessert House",
       dishName: "Tiny Celebration Dessert",
-      position: { x: 64, y: 22 },
+      position: { x: 63.5, y: 14 },
       unlockOrder: 3,
       ingredients: [
         ingredient("flour", "Flour", "pantry", 28, 35),
@@ -93,7 +105,7 @@ const GAME_DATA = {
       id: "special-dish-house",
       label: "Special Dish House",
       dishName: "Special Birthday Dish",
-      position: { x: 78, y: 22 },
+      position: { x: 77, y: 14 },
       unlockOrder: 4,
       ingredients: [
         ingredient("love", "Love", "heart jar", 24, 72),
@@ -112,7 +124,7 @@ const GAME_DATA = {
     })
   ],
   memoryHouses: [
-    memoryHouse("favorite-things", "Favorite Things About Us", 22, 78, [
+    memoryHouse("favorite-things", "Favorite Things About Us", 23, 88, [
       memory("favorite-little-things", "Favorite little things", "Favorites", [
         "Memory Lane placeholder: favorite things about us, the tiny habits and moments that make everything feel like home."
       ]),
@@ -120,22 +132,22 @@ const GAME_DATA = {
         "A placeholder for laughs that deserve their own little trophy."
       ])
     ]),
-    memoryHouse("trips", "Trips", 36, 78, [
+    memoryHouse("trips", "Trips", 36.5, 88, [
       memory("vegas-trips", "Vegas trips", "Travel", ["Trip placeholder: add favorite Vegas details, photos, and chaos here."]),
       memory("montana-big-bear", "Montana and Big Bear", "Travel", ["Travel placeholder: mountain air, cozy plans, and a future photo spot."]),
       memory("future-trips", "Future trips", "Travel", ["Future Trips placeholder: a tiny map of places still waiting for us."])
     ]),
-    memoryHouse("music", "Music", 50, 78, [
+    memoryHouse("music", "Music", 50, 88, [
       memory("song-1", "Song 1 placeholder", "Song", ["Song coming soon. Add an audio path later and it will play here."], null, null),
       memory("song-2", "Song 2 placeholder", "Song", ["Another song placeholder for the soundtrack of us."], null, null),
       memory("song-3", "Song 3 placeholder", "Song", ["One more song placeholder, ready for a real MP3 when you are."])
     ]),
-    memoryHouse("shows-movies", "Shows & Movies", 64, 78, [
+    memoryHouse("shows-movies", "Shows & Movies", 63.5, 88, [
       memory("favorite-movies", "Favorite movies we watched", "Shows", ["Movie placeholder: add the favorites, the rewatches, and the couch commentary."]),
       memory("favorite-shows", "Favorite TV shows together", "Shows", ["TV placeholder: favorite shows, shared quotes, and the episodes that became a whole thing."]),
       memory("gossip-girl", "Gossip Girl binge", "Shows", ["Gossip Girl placeholder: dramatic, iconic, and somehow exactly right."])
     ]),
-    memoryHouse("random-favorites", "Random Favorite Memories", 78, 78, [
+    memoryHouse("random-favorites", "Random Favorite Memories", 77, 88, [
       memory("favorite-drunk-memories", "Favorite drunk memories", "Random", ["Random favorite placeholder: add the funny stories here."]),
       memory("alcohol-cleanse", "Favorite alcohol-cleanse memories", "Random", ["A very specific category, which means it definitely belongs in Memory Lane."]),
       memory("recent-favorites", "Recent favorite moments", "Random", ["Recent favorite placeholder: proof the story is still collecting good stuff."])
@@ -145,7 +157,7 @@ const GAME_DATA = {
     id: "birthday-house",
     label: "Birthday House",
     zone: "birthday",
-    position: { x: 92, y: 50 },
+    position: { x: 91, y: 50 },
     letter: {
       title: "Birthday letter placeholder",
       image: null,
@@ -159,12 +171,47 @@ const GAME_DATA = {
     }
   },
   farmDecor: [
-    { label: "cow", x: 42, y: 43 },
-    { label: "pig", x: 56, y: 46 },
-    { label: "chicken", x: 48, y: 59 },
-    { label: "crops", x: 61, y: 60 },
-    { label: "fence", x: 36, y: 55 },
-    { label: "crops", x: 52, y: 36 }
+    { label: "cow", type: "animal", x: 35, y: 45, speed: 0.016, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "cow", type: "animal", x: 39, y: 52, speed: 0.014, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "cow", type: "animal", x: 44, y: 43, speed: 0.015, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "cow", type: "animal", x: 56, y: 55, speed: 0.013, bounds: { minX: 55.5, maxX: 70, minY: 42, maxY: 59 } },
+    { label: "pig", type: "animal", x: 42, y: 49, speed: 0.02, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "pig", type: "animal", x: 56, y: 45, speed: 0.019, bounds: { minX: 55.5, maxX: 70, minY: 42, maxY: 59 } },
+    { label: "pig", type: "animal", x: 60, y: 56, speed: 0.018, bounds: { minX: 55.5, maxX: 70, minY: 42, maxY: 59 } },
+    { label: "pig", type: "animal", x: 65, y: 47, speed: 0.019, bounds: { minX: 55.5, maxX: 70, minY: 42, maxY: 59 } },
+    { label: "sheep", type: "animal", x: 32, y: 55, speed: 0.014, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "sheep", type: "animal", x: 43, y: 49, speed: 0.015, bounds: { minX: 30, maxX: 44.5, minY: 41, maxY: 59 } },
+    { label: "sheep", type: "animal", x: 68, y: 53, speed: 0.014, bounds: { minX: 55.5, maxX: 70, minY: 42, maxY: 59 } },
+    { label: "capybara", type: "animal", x: 47, y: 42, speed: 0.012, bounds: { minX: 45.5, maxX: 54.5, minY: 41, maxY: 58 } },
+    { label: "capybara", type: "animal", x: 52, y: 47, speed: 0.012, bounds: { minX: 45.5, maxX: 54.5, minY: 41, maxY: 58 } },
+    { label: "chicken", type: "animal", x: 70, y: 43, speed: 0.03, bounds: { minX: 59, maxX: 71, minY: 40, maxY: 58 } },
+    { label: "hay", type: "decor", x: 31, y: 41 },
+    { label: "hay", type: "decor", x: 63, y: 41 },
+    { label: "trough", type: "decor", x: 49, y: 39 },
+    { label: "trough", type: "decor", x: 68, y: 59 },
+    { label: "crops", type: "decor", x: 61.5, y: 49 },
+    { label: "crops", type: "decor", x: 65, y: 56 }
+  ],
+  mapDecor: [
+    { label: "outdoor-decor", x: 8, y: 22, sx: 0, sy: 0 },
+    { label: "outdoor-decor", x: 14, y: 72, sx: 2, sy: 0 },
+    { label: "outdoor-decor", x: 18, y: 15, sx: 4, sy: 0 },
+    { label: "flowers", x: 29, y: 13, variant: 0 },
+    { label: "outdoor-decor", x: 34, y: 86, sx: 1, sy: 1 },
+    { label: "flower-grass", x: 44, y: 14, variant: 0 },
+    { label: "flowers", x: 53, y: 86, variant: 1 },
+    { label: "outdoor-decor", x: 58, y: 15, sx: 5, sy: 1 },
+    { label: "outdoor-decor", x: 72, y: 85, sx: 3, sy: 1 },
+    { label: "flowers", x: 84, y: 18, variant: 2 },
+    { label: "outdoor-decor", x: 92, y: 76, sx: 0, sy: 2 },
+    { label: "outdoor-decor", x: 20, y: 87, sx: 4, sy: 1 },
+    { label: "outdoor-decor", x: 90, y: 25, sx: 2, sy: 2 },
+    { label: "flowers", x: 68, y: 14, variant: 3 },
+    { label: "flowers", x: 11, y: 86, variant: 4 },
+    { label: "path-decoration", x: 18, y: 49, variant: 0 },
+    { label: "path-decoration", x: 86, y: 49, variant: 1 },
+    { label: "path-decoration", x: 31, y: 36, variant: 2 },
+    { label: "path-decoration", x: 70, y: 64, variant: 0 }
   ]
 };
 
@@ -223,6 +270,11 @@ const state = {
   questComplete: false
 };
 
+const MAP_COLS = 40;
+const MAP_ROWS = 22;
+const farmBounds = { minX: 29.5, maxX: 72, minY: 37.5, maxY: 61.5 };
+const farmAnimals = [];
+
 const els = {
   screens: {
     title: document.querySelector("#title-screen"),
@@ -260,6 +312,7 @@ const els = {
 };
 
 function init() {
+  validateAssetPaths(GAME_DATA.tileAssets);
   renderMap();
   updateObjective();
   updateMapPlayer();
@@ -335,6 +388,8 @@ function setScreen(name) {
 }
 
 function gameLoop() {
+  updateFarmAnimals();
+
   if (els.overlay.classList.contains("hidden")) {
     if (state.screen === "game") {
       movePlayer(state.mapPlayer, 4, 96, 8, 94);
@@ -350,6 +405,33 @@ function gameLoop() {
   }
 
   requestAnimationFrame(gameLoop);
+}
+
+function updateFarmAnimals() {
+  const now = performance.now();
+
+  farmAnimals.forEach((animal) => {
+    if (now < animal.pauseUntil) return;
+
+    const dx = animal.targetX - animal.x;
+    const dy = animal.targetY - animal.y;
+    const distance = Math.hypot(dx, dy);
+
+    if (distance < 0.35) {
+      animal.targetX = randomBetween(animal.bounds.minX, animal.bounds.maxX);
+      animal.targetY = randomBetween(animal.bounds.minY, animal.bounds.maxY);
+      animal.pauseUntil = now + randomBetween(450, 1800);
+      animal.element.classList.remove("walking");
+      return;
+    }
+
+    animal.x += (dx / distance) * animal.speed;
+    animal.y += (dy / distance) * animal.speed;
+    animal.element.style.left = `${animal.x}%`;
+    animal.element.style.top = `${animal.y}%`;
+    animal.element.classList.add("walking");
+    animal.element.classList.toggle("face-left", dx < 0);
+  });
 }
 
 function movePlayer(player, minX, maxX, minY, maxY) {
@@ -371,6 +453,9 @@ function movePlayer(player, minX, maxX, minY, maxY) {
 }
 
 function renderMap() {
+  renderTileMap();
+  renderFenceRails();
+
   const houses = [
     ...GAME_DATA.cookingHouses,
     ...GAME_DATA.memoryHouses,
@@ -395,27 +480,131 @@ function renderMap() {
     els.townMap.appendChild(houseEl);
   });
 
-  GAME_DATA.farmDecor.forEach((item) => {
+  GAME_DATA.mapDecor.forEach((item) => {
     const decor = document.createElement("span");
-    decor.className = `farm-prop ${item.label}`;
+    decor.className = `map-prop ${item.label}`;
     decor.style.left = `${item.x}%`;
     decor.style.top = `${item.y}%`;
-    decor.textContent = farmIcon(item.label);
+    decor.style.setProperty("--variant", item.variant || 0);
+    decor.style.setProperty("--sx", item.sx || 0);
+    decor.style.setProperty("--sy", item.sy || 0);
+    decor.setAttribute("aria-hidden", "true");
+    els.townMap.appendChild(decor);
+  });
+
+  GAME_DATA.farmDecor.forEach((item) => {
+    const decor = document.createElement("span");
+    decor.className = `farm-prop ${item.type} ${item.label}`;
+    decor.style.left = `${item.x}%`;
+    decor.style.top = `${item.y}%`;
+    decor.setAttribute("aria-label", item.label);
     els.farmDecor.appendChild(decor);
+
+    if (item.type === "animal") {
+      farmAnimals.push(createFarmAnimal(item, decor));
+    }
   });
 
   refreshHouseClasses();
 }
 
-function farmIcon(label) {
-  const icons = {
-    cow: "cow",
-    pig: "pig",
-    chicken: "hen",
-    crops: "crop",
-    fence: "fence"
-  };
-  return icons[label] || label;
+function renderTileMap() {
+  const oldLayer = els.townMap.querySelector(".tile-layer");
+  if (oldLayer) oldLayer.remove();
+
+  const layer = document.createElement("div");
+  layer.className = "tile-layer";
+  layer.style.setProperty("--cols", MAP_COLS);
+  layer.style.setProperty("--rows", MAP_ROWS);
+
+  const specialTiles = buildSpecialTileMap();
+
+  specialTiles.forEach((special, key) => {
+    const [col, row] = key.split(",").map(Number);
+    const tile = document.createElement("span");
+    tile.className = `map-tile ${special.type}`;
+    if (special.edge) tile.className += ` ${special.edge}`;
+    tile.style.left = `${(col / MAP_COLS) * 100}%`;
+    tile.style.top = `${(row / MAP_ROWS) * 100}%`;
+    tile.style.width = `calc(${100 / MAP_COLS}% + 1px)`;
+    tile.style.height = `calc(${100 / MAP_ROWS}% + 1px)`;
+    layer.appendChild(tile);
+  });
+
+  els.townMap.prepend(layer);
+}
+
+function buildSpecialTileMap() {
+  const tiles = new Map();
+
+  addRect(tiles, 0, 10, 7, 2, "path");
+  addRect(tiles, 33, 10, 7, 2, "path");
+  addRect(tiles, 7, 5, 26, 3, "path");
+  addRect(tiles, 7, 15, 26, 3, "path");
+  addRect(tiles, 7, 8, 3, 7, "path");
+  addRect(tiles, 30, 8, 3, 7, "path");
+
+  addRect(tiles, 10, 8, 20, 7, "farm-grass");
+  addRect(tiles, 18, 9, 4, 4, "water");
+  addRect(tiles, 24, 8, 6, 6, "farmland");
+
+  return tiles;
+}
+
+function renderFenceRails() {
+  const oldLayer = els.townMap.querySelector(".fence-layer");
+  if (oldLayer) oldLayer.remove();
+
+  const layer = document.createElement("div");
+  layer.className = "fence-layer";
+
+  [
+    { col: 10, row: 8, width: 20, height: 7 }
+  ].forEach((box) => {
+    [
+      { side: "top", col: box.col, row: box.row, width: box.width, height: 0.6 },
+      { side: "bottom", col: box.col, row: box.row + box.height - 0.6, width: box.width, height: 0.6 },
+      { side: "left", col: box.col, row: box.row, width: 0.6, height: box.height },
+      { side: "right", col: box.col + box.width - 0.6, row: box.row, width: 0.6, height: box.height }
+    ].forEach((rail) => {
+      const element = document.createElement("span");
+      element.className = `fence-rail ${rail.side}`;
+      element.style.left = `${(rail.col / MAP_COLS) * 100}%`;
+      element.style.top = `${(rail.row / MAP_ROWS) * 100}%`;
+      element.style.width = `${(rail.width / MAP_COLS) * 100}%`;
+      element.style.height = `${(rail.height / MAP_ROWS) * 100}%`;
+      layer.appendChild(element);
+    });
+
+    [
+      { corner: "tl", col: box.col, row: box.row },
+      { corner: "tr", col: box.col + box.width - 0.6, row: box.row },
+      { corner: "bl", col: box.col, row: box.row + box.height - 0.6 },
+      { corner: "br", col: box.col + box.width - 0.6, row: box.row + box.height - 0.6 }
+    ].forEach((corner) => {
+      const element = document.createElement("span");
+      element.className = `fence-corner ${corner.corner}`;
+      element.style.left = `${(corner.col / MAP_COLS) * 100}%`;
+      element.style.top = `${(corner.row / MAP_ROWS) * 100}%`;
+      element.style.width = `${(0.6 / MAP_COLS) * 100}%`;
+      element.style.height = `${(0.6 / MAP_ROWS) * 100}%`;
+      layer.appendChild(element);
+    });
+  });
+
+  els.townMap.appendChild(layer);
+}
+
+function addRect(tiles, startCol, startRow, width, height, type) {
+  for (let row = startRow; row < startRow + height; row += 1) {
+    for (let col = startCol; col < startCol + width; col += 1) {
+      tiles.set(tileKey(col, row), { type });
+    }
+  }
+}
+
+function tileKey(col, row) {
+  return `${col},${row}`;
 }
 
 function refreshHouseClasses() {
@@ -430,6 +619,20 @@ function refreshHouseClasses() {
     houseEl.classList.toggle("completed", Boolean(house.zone === "cooking" && state.completedCookingHouses.has(house.id)));
     houseEl.classList.toggle("birthday-ready", Boolean(house.zone === "birthday" && unlocked));
   });
+}
+
+function createFarmAnimal(item, element) {
+  return {
+    id: item.label,
+    element,
+    x: item.x,
+    y: item.y,
+    targetX: item.x,
+    targetY: item.y,
+    bounds: item.bounds || farmBounds,
+    speed: item.speed,
+    pauseUntil: performance.now() + randomBetween(200, 1200)
+  };
 }
 
 function updateMapPlayer() {
@@ -512,13 +715,15 @@ function buildRecipeIntroLines(house) {
 }
 
 function renderCookingRoom(house) {
-  els.cookingRoom.querySelectorAll(".ingredient-object, .combine-station").forEach((node) => node.remove());
+  els.cookingRoom.querySelectorAll(".ingredient-object, .combine-station, .room-decor").forEach((node) => node.remove());
   els.recipeTitle.textContent = `${house.label}: ${house.dishName}`;
+
+  renderRoomDecor();
 
   house.ingredients.forEach((item) => {
     const ingredientEl = document.createElement("button");
     ingredientEl.type = "button";
-    ingredientEl.className = "ingredient-object";
+    ingredientEl.className = `ingredient-object ingredient-${item.id}`;
     ingredientEl.dataset.targetId = item.id;
     ingredientEl.style.left = `${item.x}%`;
     ingredientEl.style.top = `${item.y}%`;
@@ -546,6 +751,22 @@ function renderCookingRoom(house) {
   updateRecipeChecklist(house);
   updateRoomPlayer();
   updateNearbyRoomTarget();
+}
+
+function renderRoomDecor() {
+  [
+    { label: "Pantry", className: "pantry", x: 18, y: 25 },
+    { label: "Fridge", className: "fridge", x: 82, y: 27 },
+    { label: "Shelf", className: "shelf", x: 28, y: 82 },
+    { label: "Chair", className: "chair", x: 82, y: 76 }
+  ].forEach((decorItem) => {
+    const decor = document.createElement("span");
+    decor.className = `room-decor ${decorItem.className}`;
+    decor.style.left = `${decorItem.x}%`;
+    decor.style.top = `${decorItem.y}%`;
+    decor.setAttribute("aria-label", decorItem.label);
+    els.cookingRoom.appendChild(decor);
+  });
 }
 
 function updateRecipeChecklist(house) {
@@ -863,6 +1084,21 @@ function memoryKey(houseId, memoryId) {
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function randomBetween(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function validateAssetPaths(paths) {
+  const flatPaths = Object.values(paths).flat();
+  flatPaths.forEach((path) => {
+    const image = new Image();
+    image.onerror = () => {
+      console.warn(`Missing overworld asset: ${path}. The tilemap will use CSS fallback colors for that tile.`);
+    };
+    image.src = path;
+  });
 }
 
 init();

@@ -229,6 +229,50 @@ No build step is required.
 - `assets/audio/` - future songs and audio memories.
 - `assets/sprites/` - future character, house, ingredient, or farm sprites.
 
+## Using the asset pack
+
+The overworld is now built from asset-pack tiles instead of CSS-generated terrain shapes.
+
+The main terrain paths are defined in `GAME_DATA.tileAssets` in `game.js`:
+
+```js
+tileAssets: {
+  grass: [
+    "assets/images/map/grass-1.png",
+    "assets/images/map/grass-2.png",
+    "assets/images/map/grass-3.png"
+  ],
+  path: "assets/images/map/path-middle.png",
+  farmland: "assets/images/map/farmland-tile.png",
+  water: "assets/images/map/water-middle.png",
+  fence: "assets/images/map/fence-big.png"
+}
+```
+
+Current map asset locations:
+
+- Grass tiles: `assets/images/map/grass-1.png`, `grass-2.png`, `grass-3.png`
+- Road/path tile: `assets/images/map/path-middle.png`
+- Pond/water tile: `assets/images/map/water-middle.png`
+- Farm soil tile: `assets/images/map/farmland-tile.png`
+- Fence rails: `assets/images/map/fence-big.png`
+- Crops: `assets/images/map/crops.png`
+- Flowers and grass props: `assets/images/map/flowers.png`, `flower-grass.png`, `grass-detail.png`, `outdoor-decor.png`
+- Houses: `assets/images/houses/standard-house.png`, `birthday-barn.png`
+- Animals: `assets/sprites/cow.png`, `pig.png`, `chicken.png`
+
+To replace a tile image, put the new PNG in `assets/images/map/` and update the matching path in `GAME_DATA.tileAssets` or the related CSS rule in `style.css`.
+
+To add new tile variations, add the PNG to `assets/images/map/`, then either:
+
+- add it to `GAME_DATA.tileAssets.grass` if it is a grass variation
+- create a new CSS class like `.map-tile.my-new-tile` in `style.css`
+- update `buildSpecialTileMap()` in `game.js` to place that tile on the overworld grid
+
+The overworld grid uses `MAP_COLS` and `MAP_ROWS` in `game.js`. The current map is `40 x 22` tiles. Keep new terrain aligned to that grid so paths, houses, farm zones, and labels stay clean.
+
+If a tile asset path is missing, the game logs a warning in the browser console and uses a CSS fallback color so the page does not break.
+
 ## Troubleshooting
 
 - If an image does not show, check spelling and capitalization in the path.

@@ -53,24 +53,81 @@ button {
   display: grid;
 }
 
-#title-screen,
+#title-screen {
+  position: relative;
+  place-items: center;
+  padding: 24px;
+  overflow: hidden;
+  background-color: #9bd284;
+  background-image:
+    url("assets/images/map/grass-tile.png"),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.04) 25%, transparent 25%),
+    linear-gradient(135deg, rgba(239, 112, 157, 0.12), rgba(255, 243, 220, 0.3));
+  background-size: 48px 48px, 42px 42px, 42px 42px, auto;
+  background-position: 0 0, 0 0, 0 0, center;
+  background-repeat: repeat, repeat, repeat, no-repeat;
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+
 #ending-screen {
   place-items: center;
   padding: 24px;
 }
 
+#title-screen::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 58%;
+  height: 17%;
+  border-radius: 50%;
+  background:
+    url("assets/images/map/path-tile.png"),
+    linear-gradient(rgba(234, 203, 143, 0.9), rgba(234, 203, 143, 0.9));
+  background-size: 32px 32px, auto;
+  background-blend-mode: soft-light, normal;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 249, 238, 0.2),
+    0 0 0 2px rgba(68, 40, 59, 0.08);
+}
+
+#title-screen::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: min(620px, 72vw);
+  height: min(160px, 18vh);
+  transform: translateX(-50%);
+  background:
+    url("assets/images/houses/standard-house.png") 5% 50% / 88px 116px no-repeat,
+    url("assets/images/houses/birthday-barn.png") 95% 50% / 112px 126px no-repeat,
+    url("assets/sprites/cow.png") 35% 72% / 42px 42px no-repeat,
+    url("assets/sprites/pig.png") 47% 76% / 38px 38px no-repeat,
+    url("assets/sprites/chicken.png") 58% 78% / 28px 28px no-repeat,
+    url("assets/images/map/fountain.png") 50% 45% / 38px 72px no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  opacity: 0.96;
+}
+
 .title-card,
 .ending-card {
+  position: relative;
+  z-index: 2;
   width: min(720px, 96vw);
   padding: 32px;
   border: 4px solid var(--ink);
   border-radius: 8px;
-  background:
-    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.9) 0 7px, transparent 8px),
-    radial-gradient(circle at 84% 26%, rgba(255, 255, 255, 0.85) 0 5px, transparent 6px),
-    var(--paper);
-  box-shadow: 0 12px 0 var(--shadow);
+  background: rgba(255, 249, 238, 0.96);
+  box-shadow: 0 10px 0 var(--shadow), 0 0 36px rgba(255, 241, 91, 0.18);
   text-align: center;
+}
+
+.title-card {
+  margin-bottom: min(120px, 16vh);
 }
 
 .eyebrow {
@@ -143,30 +200,31 @@ h2 {
 
 #game-screen {
   grid-template-rows: auto 1fr;
-  gap: 14px;
-  padding: 14px;
+  gap: 10px;
+  padding: 10px 14px 14px;
 }
 
 #objective-box {
   z-index: 5;
   width: min(1100px, 100%);
   justify-self: center;
-  padding: 12px 16px;
-  border: 4px solid var(--ink);
+  padding: 9px 14px;
+  border: 3px solid var(--ink);
   border-radius: 8px;
   background: rgba(255, 249, 238, 0.96);
-  box-shadow: 0 7px 0 var(--shadow);
+  box-shadow: 0 5px 0 var(--shadow);
 }
 
 #objective-box p {
-  margin: 3px 0;
+  margin: 2px 0;
   font-weight: 800;
+  line-height: 1.18;
 }
 
 #optional-objective,
 #controls-hint {
   color: var(--soft-ink);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
 }
 
 #town-wrap {
@@ -186,202 +244,505 @@ h2 {
   overflow: hidden;
   border: 4px solid var(--ink);
   border-radius: 8px;
-  background-color: var(--grass);
-  background-image:
-    linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(73, 133, 75, 0.12) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(73, 133, 75, 0.12) 75%);
-  background-size: 34px 34px;
+  background: #80c56f;
   box-shadow: 0 10px 0 var(--shadow);
+  image-rendering: pixelated;
 }
 
-#town-map::before {
+#town-map::before,
+#town-map::after {
+  display: none;
+}
+
+.tile-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: #4e904f;
+  background-image: url("assets/images/map/grass-1.png");
+  background-size: calc(100% / var(--cols)) calc(100% / var(--rows));
+  background-repeat: repeat;
+  image-rendering: pixelated;
+}
+
+.tile-layer::before {
   content: "";
   position: absolute;
-  left: 14%;
-  top: 27%;
-  width: 72%;
-  height: 46%;
-  border: 28px solid var(--path);
-  border-radius: 999px;
-  box-shadow:
-    inset 0 0 0 4px rgba(255, 255, 255, 0.18),
-    0 0 0 3px rgba(68, 40, 59, 0.14);
+  inset: 0;
+  background-image:
+    url("assets/images/map/grass-detail.png"),
+    url("assets/images/map/flower-grass.png");
+  background-position:
+    5% 17%,
+    87% 73%;
+  background-repeat: repeat;
+  background-size:
+    192px 24px,
+    224px 28px;
+  opacity: 0.09;
+  pointer-events: none;
 }
 
+.map-tile {
+  position: absolute;
+  min-width: 0;
+  min-height: 0;
+  background-color: #8ccd74;
+  background-image: url("assets/images/map/grass-1.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.map-tile.path {
+  background-color: #dfae73;
+  background-image: url("assets/images/map/path-middle.png");
+}
+
+.map-tile.farm-grass {
+  background-color: #549954;
+  background-image: url("assets/images/map/grass-2.png");
+}
+
+.map-tile.farmland {
+  background-color: #bd7951;
+  background-image: url("assets/images/map/farmland-tile.png");
+  background-size: 700% 800%;
+  background-position: 50% 50%;
+}
+
+.map-tile.water {
+  background-color: #1596de;
+  background-image: url("assets/images/map/water-middle.png");
+}
+
+/* Legacy path elements stay in the DOM for clarity, but the actual map is rendered by .tile-layer. */
 #path-main,
 #path-cooking,
 #path-memory,
-#path-birthday {
-  position: absolute;
-  background: var(--path);
-  border: 3px solid rgba(68, 40, 59, 0.14);
-  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.16);
-}
-
-#path-main {
-  left: 0;
-  top: 46%;
-  width: 17%;
-  height: 8%;
-  border-radius: 8px;
-}
-
-#path-cooking {
-  left: 14%;
-  top: 27%;
-  width: 72%;
-  height: 14%;
-  border-radius: 999px 999px 20px 20px;
-}
-
-#path-memory {
-  left: 14%;
-  top: 59%;
-  width: 72%;
-  height: 14%;
-  border-radius: 20px 20px 999px 999px;
-}
-
-#path-birthday {
-  right: 0;
-  top: 46%;
-  width: 16%;
-  height: 8%;
-  border-radius: 8px;
-}
-
-#pond {
-  position: absolute;
-  left: 45%;
-  top: 43%;
-  width: 10%;
-  height: 14%;
-  border: 4px solid #4b91ad;
-  border-radius: 45%;
-  background: repeating-linear-gradient(0deg, var(--water), var(--water) 12px, #93dcec 13px, #93dcec 18px);
-}
-
+#path-birthday,
+#pond,
 #garden {
+  display: none;
+}
+
+.fence-layer {
   position: absolute;
-  left: 57%;
-  top: 44%;
-  width: 14%;
-  height: 17%;
-  border: 3px dashed rgba(68, 40, 59, 0.35);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle, #ff81a9 0 5px, transparent 6px),
-    radial-gradient(circle, #fff07b 0 4px, transparent 5px),
-    rgba(255, 255, 255, 0.14);
-  background-position: 12px 10px, 34px 24px;
-  background-size: 42px 36px;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.fence-rail {
+  position: absolute;
+  background-image: url("assets/images/map/fence-big.png");
+  background-repeat: repeat;
+  background-size: 72px 72px;
+  image-rendering: pixelated;
+  filter: brightness(1.15) saturate(1.04) drop-shadow(0 2px 0 rgba(68, 40, 59, 0.18));
+}
+
+.fence-rail::before,
+.fence-rail::after {
+  content: "";
+  position: absolute;
+  background: #8a583a;
+  box-shadow: 0 1px 0 rgba(255, 231, 173, 0.38), 0 2px 0 rgba(68, 40, 59, 0.22);
+}
+
+.fence-rail.top,
+.fence-rail.bottom {
+  background-position: -18px 0;
+}
+
+.fence-rail.top::before,
+.fence-rail.bottom::before {
+  left: 0;
+  right: 0;
+  top: 35%;
+  height: 4px;
+}
+
+.fence-rail.top::after,
+.fence-rail.bottom::after {
+  left: 0;
+  right: 0;
+  top: 58%;
+  height: 4px;
+}
+
+.fence-rail.left,
+.fence-rail.right {
+  background-position: 0 -18px;
+}
+
+.fence-rail.left::before,
+.fence-rail.right::before {
+  top: 0;
+  bottom: 0;
+  left: 35%;
+  width: 4px;
+}
+
+.fence-rail.left::after,
+.fence-rail.right::after {
+  top: 0;
+  bottom: 0;
+  left: 58%;
+  width: 4px;
+}
+
+.fence-corner {
+  position: absolute;
+  z-index: 2;
+  background-image: url("assets/images/map/fence-big.png");
+  background-size: 72px 72px;
+  background-position: 0 0;
+  image-rendering: pixelated;
+  filter: brightness(1.18) saturate(1.06) drop-shadow(0 2px 0 rgba(68, 40, 59, 0.18));
 }
 
 #farm-decor {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
+}
+
+#farm-decor::before {
+  display: none;
+}
+
+#farm-decor::after {
+  display: none;
 }
 
 .farm-prop {
   position: absolute;
   z-index: 1;
-  min-width: 44px;
-  padding: 5px 6px;
+  width: 44px;
+  height: 44px;
   transform: translate(-50%, -50%);
-  border: 3px solid rgba(68, 40, 59, 0.5);
-  border-radius: 6px;
-  background: rgba(255, 249, 238, 0.86);
-  color: var(--soft-ink);
-  font-size: 0.68rem;
-  font-weight: 900;
-  text-align: center;
-  text-transform: uppercase;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
+.farm-prop.animal {
+  z-index: 3;
+  animation: animal-walk-cycle 1.35s steps(1) infinite;
+  background-position: 0 0;
+  background-size: 200% 200%;
+  transition: filter 0.2s ease;
+}
+
+.farm-prop.animal.walking {
+  animation-duration: 0.58s;
+  filter: drop-shadow(0 3px 0 rgba(68, 40, 59, 0.16));
+}
+
+.farm-prop.animal.walking::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 46%;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(68, 40, 59, 0.12);
+}
+
+.farm-prop.animal.face-left {
+  scale: -1 1;
+}
+
+.farm-prop.cow {
+  width: 48px;
+  height: 48px;
+  background-image: url("assets/sprites/cow.png");
+}
+
+.farm-prop.pig {
+  width: 42px;
+  height: 42px;
+  background-image: url("assets/sprites/pig.png");
+}
+
+.farm-prop.chicken {
+  width: 30px;
+  height: 30px;
+  background-image: url("assets/sprites/chicken.png");
+}
+
+.farm-prop.sheep {
+  width: 38px;
+  height: 38px;
+  animation: sheep-idle-cycle 1.05s steps(1) infinite;
+  background-image: url("assets/sprites/sheep.png");
+  background-size: 800% 1500%;
+}
+
+.farm-prop.sheep.walking {
+  animation-duration: 0.5s;
+}
+
+.farm-prop.capybara {
+  width: 44px;
+  height: 30px;
+  animation: capybara-idle-cycle 1.2s steps(1) infinite;
+  background-image: url("assets/sprites/capybara.png");
+  background-size: 900% 100%;
+}
+
+.farm-prop.capybara.walking {
+  animation-duration: 0.72s;
+}
+
+.farm-prop.crops {
+  width: 54px;
+  height: 60px;
+  background-image: url("assets/images/map/crops.png");
+  background-size: 112px 688px;
+  background-position: center top;
+}
+
+.farm-prop.fountain {
+  width: 44px;
+  height: 78px;
+  background-image: url("assets/images/map/fountain.png");
+}
+
+.farm-prop.hay {
+  width: 44px;
+  height: 28px;
+  background-image: url("assets/images/map/hay-bales.png");
+  background-size: 132px 44px;
+  background-position: center;
+  filter: drop-shadow(0 3px 0 rgba(68, 40, 59, 0.15));
+}
+
+.farm-prop.trough {
+  width: 44px;
+  height: 30px;
+  background-image: url("assets/images/map/water-troughs.png");
+  background-size: 66px 44px;
+  background-position: left top;
+  filter: drop-shadow(0 3px 0 rgba(68, 40, 59, 0.15));
+}
+
+@keyframes animal-walk-cycle {
+  0%,
+  24.99% {
+    background-position: 0 0;
+  }
+
+  25%,
+  49.99% {
+    background-position: 100% 0;
+  }
+
+  50%,
+  74.99% {
+    background-position: 0 100%;
+  }
+
+  75%,
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes sheep-idle-cycle {
+  0%,
+  49.99% {
+    background-position: 0 0;
+  }
+
+  50%,
+  100% {
+    background-position: 14.285% 0;
+  }
+}
+
+@keyframes capybara-idle-cycle {
+  0%,
+  12.49% {
+    background-position: 0 0;
+  }
+
+  12.5%,
+  24.99% {
+    background-position: 12.5% 0;
+  }
+
+  25%,
+  37.49% {
+    background-position: 25% 0;
+  }
+
+  37.5%,
+  49.99% {
+    background-position: 37.5% 0;
+  }
+
+  50%,
+  62.49% {
+    background-position: 50% 0;
+  }
+
+  62.5%,
+  74.99% {
+    background-position: 62.5% 0;
+  }
+
+  75%,
+  87.49% {
+    background-position: 75% 0;
+  }
+
+  87.5%,
+  100% {
+    background-position: 87.5% 0;
+  }
+}
+
+.map-prop {
+  position: absolute;
+  z-index: 1;
+  width: 32px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 0 rgba(68, 40, 59, 0.08));
+}
+
+.map-prop.grass-detail,
+.map-prop.flower-grass {
+  width: 24px;
+  height: 24px;
+  background-size: 192px 24px;
+  background-position: calc(var(--variant) * -24px) center;
+  opacity: 0.82;
+}
+
+.map-prop.grass-detail {
+  background-image: url("assets/images/map/grass-detail.png");
+}
+
+.map-prop.flower-grass {
+  background-image: url("assets/images/map/flower-grass.png");
+}
+
+.map-prop.outdoor-decor {
+  width: 26px;
+  height: 26px;
+  background-image: url("assets/images/map/outdoor-decor.png");
+  background-size: 234px 676px;
+  background-position: calc(var(--sx) * -26px) calc(var(--sy) * -26px);
+  opacity: 0.82;
+}
+
+.map-prop.flowers {
+  width: 24px;
+  height: 24px;
+  background-image: url("assets/images/map/flowers.png");
+  background-size: 240px 240px;
+  background-position: calc(var(--variant) * -24px) -96px;
+  opacity: 0.76;
+}
+
+.map-prop.path-decoration {
+  width: 24px;
+  height: 24px;
+  background-image: url("assets/images/map/path-decoration.png");
+  background-size: 72px 24px;
+  background-position: calc(var(--variant) * -24px) center;
+  opacity: 0.58;
 }
 
 .house {
   position: absolute;
-  width: 92px;
-  height: 84px;
+  z-index: 3;
+  width: 112px;
+  height: 118px;
   transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
   text-align: center;
 }
 
 .house-sprite {
+  display: block;
   position: relative;
-  width: 70px;
-  height: 62px;
+  width: 74px;
+  height: 86px;
   margin: 0 auto;
-  border: 4px solid var(--ink);
-  border-top: 0;
-  background: #ffd7a8;
-  box-shadow: 0 6px 0 rgba(68, 40, 59, 0.22);
+  border: 0;
+  background-image: url("assets/images/houses/standard-house.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 5px 0 rgba(68, 40, 59, 0.16));
 }
 
 .house-sprite::before {
-  content: "";
-  position: absolute;
-  left: -8px;
-  top: -28px;
-  width: 78px;
-  height: 34px;
-  border: 4px solid var(--ink);
-  background: #e85f87;
-  transform: skewX(-12deg);
+  display: none;
 }
 
 .house-sprite::after {
-  content: "";
-  position: absolute;
-  left: 26px;
-  bottom: 0;
-  width: 18px;
-  height: 28px;
-  border: 3px solid var(--ink);
-  border-bottom: 0;
-  background: #9c653d;
+  display: none;
 }
 
 .house.memory .house-sprite {
-  background: #c9f0d8;
+  background-image: url("assets/images/houses/standard-house.png");
 }
 
 .house.memory .house-sprite::before {
-  background: #75bfea;
+  display: none;
 }
 
 .house.birthday .house-sprite {
-  background: #ffe2f0;
+  width: 92px;
+  height: 102px;
+  background-image: url("assets/images/houses/birthday-barn.png");
 }
 
 .house.birthday .house-sprite::before {
-  background: #b979d1;
+  display: none;
 }
 
 .house.cooking .house-sprite {
-  background: #ffe1ad;
+  background-image: url("assets/images/houses/standard-house.png");
 }
 
 .house.cooking .house-sprite::before {
-  background: #ee7f58;
+  display: none;
 }
 
 .house-label {
   display: block;
-  margin-top: 5px;
-  padding: 2px 4px;
-  border-radius: 4px;
-  background: rgba(255, 249, 238, 0.88);
-  font-size: 0.68rem;
+  width: max-content;
+  max-width: 110px;
+  margin: -8px auto 0;
+  padding: 3px 8px;
+  border: 1px solid rgba(68, 40, 59, 0.13);
+  border-radius: 6px;
+  background: rgba(255, 249, 238, 0.9);
+  box-shadow: 0 2px 0 rgba(68, 40, 59, 0.1);
+  font-size: 0.64rem;
   font-weight: 900;
   line-height: 1.05;
 }
 
 .house.locked {
   filter: grayscale(0.55);
-  opacity: 0.52;
+  opacity: 0.48;
 }
 
 .house.locked .house-sprite::after {
@@ -389,14 +750,14 @@ h2 {
 }
 
 .house.current {
-  filter: drop-shadow(0 0 12px #fff15b) drop-shadow(0 0 18px #ff72a7);
+  filter: drop-shadow(0 0 12px #fff15b) drop-shadow(0 0 20px #ff72a7);
 }
 
 .house.current::before {
   content: "▼";
   position: absolute;
   left: 50%;
-  top: -42px;
+  top: -16px;
   transform: translateX(-50%);
   color: #ffec4f;
   font-size: 2rem;
@@ -404,15 +765,29 @@ h2 {
   animation: bob 0.8s infinite alternate;
 }
 
+.house.current::after,
+.house.optional-ready::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 84px;
+  width: 20px;
+  height: 16px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(68, 40, 59, 0.12);
+  z-index: -1;
+}
+
 .house.optional-ready {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.82));
 }
 
 .house.optional-ready::before {
   content: "✦";
   position: absolute;
-  right: 4px;
-  top: -22px;
+  right: 10px;
+  top: -14px;
   color: #fff474;
   font-size: 1.2rem;
   text-shadow: 1px 1px 0 var(--ink);
@@ -431,7 +806,7 @@ h2 {
   content: "★";
   position: absolute;
   left: 50%;
-  top: -42px;
+  top: -16px;
   transform: translateX(-50%);
   color: #ffec4f;
   font-size: 2rem;
@@ -449,22 +824,19 @@ h2 {
   transform: translate(-50%, -50%);
   z-index: 4;
   border: 3px solid var(--ink);
-  border-radius: 8px 8px 5px 5px;
-  background: #f2779e;
+  border-radius: 4px;
+  background-color: transparent;
+  background-image: url("assets/sprites/kristy.png");
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-size: 192px 320px;
+  image-rendering: pixelated;
   box-shadow: 0 5px 0 rgba(68, 40, 59, 0.25);
 }
 
 #player::before,
 #room-player::before {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: -18px;
-  width: 14px;
-  height: 14px;
-  border: 3px solid var(--ink);
-  border-radius: 6px;
-  background: #ffd7b8;
+  display: none;
 }
 
 #player::after,
@@ -563,11 +935,24 @@ h2 {
   border: 4px solid var(--ink);
   border-radius: 8px;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    url("assets/images/interiors/wood-floor-tiles.png"),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
     #f1c98b;
-  background-size: 38px 38px;
+  background-size: 128px 96px, 38px 38px, 38px 38px, auto;
+  background-blend-mode: soft-light, normal, normal, normal;
   box-shadow: 0 10px 0 var(--shadow);
+}
+
+#cooking-room::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 86px;
+  background:
+    url("assets/images/interiors/interior-walls.png") left top / 224px 96px repeat-x,
+    rgba(113, 80, 59, 0.1);
+  opacity: 0.85;
 }
 
 #room-floor {
@@ -598,10 +983,70 @@ h2 {
   text-align: center;
 }
 
+.ingredient-object::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 5px auto 0;
+  background-image: url("assets/images/ui/food-icons.png");
+  background-repeat: no-repeat;
+  background-size: 224px 336px;
+  image-rendering: pixelated;
+}
+
+.ingredient-eggs::before,
+.ingredient-love::before {
+  background-position: -112px -196px;
+}
+
+.ingredient-toast::before,
+.ingredient-flour::before {
+  background-position: -28px -252px;
+}
+
+.ingredient-strawberries::before {
+  background-position: -168px -112px;
+}
+
+.ingredient-sugar::before,
+.ingredient-sparkle::before {
+  background-position: -196px -252px;
+}
+
+.ingredient-plantains::before {
+  background-position: -112px -84px;
+}
+
+.ingredient-butter::before,
+.ingredient-cream::before {
+  background-position: -168px -252px;
+}
+
+.ingredient-rice::before {
+  background-position: -84px -252px;
+}
+
+.ingredient-veggies::before {
+  background-position: -28px -140px;
+}
+
+.ingredient-sauce::before {
+  background-position: -196px -168px;
+}
+
+.ingredient-chocolate::before {
+  background-position: -140px -252px;
+}
+
+.ingredient-laughs::before {
+  background-position: -196px -28px;
+}
+
 .ingredient-object span,
 .combine-station span {
   display: block;
-  padding-top: 8px;
+  padding-top: 2px;
 }
 
 .ingredient-object small,
@@ -623,9 +1068,65 @@ h2 {
   background: #d9f0ff;
 }
 
+.combine-station::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 34px;
+  margin: 4px auto 0;
+  background: url("assets/images/interiors/tables.png") left top / 192px 80px no-repeat;
+  image-rendering: pixelated;
+}
+
 .combine-station.active {
   background: #dcf5de;
   filter: drop-shadow(0 0 10px rgba(255, 241, 91, 0.85));
+}
+
+.room-decor {
+  position: absolute;
+  z-index: 2;
+  width: 54px;
+  height: 54px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+  opacity: 0.9;
+  filter: drop-shadow(0 3px 0 rgba(68, 40, 59, 0.14));
+  pointer-events: none;
+}
+
+.room-decor.pantry {
+  width: 58px;
+  height: 58px;
+  background-image: url("assets/images/interiors/indoor-decor.png");
+  background-size: 96px 256px;
+  background-position: 0 -64px;
+}
+
+.room-decor.fridge {
+  width: 54px;
+  height: 66px;
+  background-image: url("assets/images/interiors/indoor-decor.png");
+  background-size: 96px 256px;
+  background-position: -48px -64px;
+}
+
+.room-decor.shelf {
+  width: 62px;
+  height: 48px;
+  background-image: url("assets/images/interiors/indoor-decor.png");
+  background-size: 96px 256px;
+  background-position: 0 -128px;
+}
+
+.room-decor.chair {
+  width: 42px;
+  height: 46px;
+  background-image: url("assets/images/interiors/chairs.png");
+  background-size: 224px 352px;
+  background-position: 0 0;
 }
 
 #house-screen {
